@@ -10,13 +10,51 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://maven.google.com' }
+        maven { url 'https://www.jitpack.io' }
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
-        classpath("com.facebook.react:react-native-gradle-plugin")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath("com.android.tools.build:gradle:7.4.2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
     }
 }
 
-// apply plugin: "com.facebook.react.rootproject"
+apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
+
+repositories {
+    mavenCentral()
+    maven { url 'https://maven.google.com' }
+    maven { url 'https://www.jitpack.io' }
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.awesomeproject"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        ndkVersion rootProject.ext.ndkVersion
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.facebook.react:react-native:+"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+    implementation "com.google.mlkit:vision-face-detection:16.0.3"
+    implementation "com.mrousavy:react-native-vision-camera:2.13.0"
+    implementation project(':vision-camera-face-detector')
+}
+
+apply plugin: 'com.facebook.react'

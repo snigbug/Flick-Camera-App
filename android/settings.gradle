@@ -1,4 +1,6 @@
 rootProject.name = 'AwesomeProject'
 apply from: file("../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesSettingsGradle(settings)
 include ':app'
+include ':vision-camera-face-detector'
+project(':vision-camera-face-detector').projectDir = new File(rootProject.projectDir, '../node_modules/vision-camera-face-detector/android')
 includeBuild('../node_modules/@react-native/gradle-plugin')
